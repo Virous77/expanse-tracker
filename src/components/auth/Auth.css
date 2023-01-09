@@ -1,0 +1,117 @@
+.overLay {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+}
+
+.authMain {
+  background-color: white;
+  padding: 2rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 40%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 32;
+  border-bottom-right-radius: 100px;
+}
+
+.authMain header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgb(46, 46, 46);
+}
+
+.userProfile {
+  margin-top: 2rem;
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.userPicBorder {
+  border: 2px solid black;
+}
+
+.userProfile input {
+  display: none;
+}
+
+.userProfile img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.changeImage {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  cursor: pointer;
+  bottom: 1.5%;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  padding: 2px 25px;
+  font-size: 13px;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.3rem;
+  gap: 1.5rem;
+}
+
+.registerForm input {
+  padding: 15px 10px;
+  font-size: 1rem;
+  outline: none;
+  border: 2px solid aqua;
+  color: #8a2be2;
+  width: 100%;
+}
+
+.registerForm button {
+  border: none;
+  padding: 15px;
+  background-color: #00ffff;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.regPass {
+  width: 100%;
+  position: relative;
+}
+
+.regPass p {
+  position: absolute;
+  right: 4%;
+  top: 33%;
+}
+
+.regCoverImg {
+  position: absolute;
+  bottom: 0%;
+  left: 85%;
+  transform: translate(-50%);
+}
+
+.regCoverImg img {
+  width: 10rem;
+  opacity: 0.3;
+  transform: rotate(-30deg);
+}
