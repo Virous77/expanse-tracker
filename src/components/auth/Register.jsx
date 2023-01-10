@@ -1,45 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Auth.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsCamera, BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { TbEdit } from "react-icons/tb";
 import register from "../../assets/register.svg";
-import { registerUser } from "../../store/authSlice";
-import { useDispatch } from "react-redux";
+import { userUserContext } from "../../store/userContext";
 
-const Auth = () => {
-  const [uploadImage, setUploadImage] = useState(null);
-  const [showPass, setShowPass] = useState(false);
-  const initialState = {
-    userName: "",
-    uniqueId: "",
-    password: "",
-    email: "",
-  };
-  const [userData, setUserData] = useState(initialState);
+const Register = () => {
+  const {
+    preview,
+    saveUser,
+    handleChange,
+    userData,
+    localStateInfo,
+    setLocalStateInfo,
+    deleteImage,
+    uploadProfileImage,
+  } = userUserContext();
   const { userName, uniqueId, password, email } = userData;
-  const dispatch = useDispatch();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
-  };
-
-  const preview = (event) => {
-    const targetFiles = event.target.files[0];
-    setUploadImage(URL.createObjectURL(targetFiles));
-  };
-
-  const saveUser = () => {
-    const userInfo = {
-      userName,
-      uniqueId,
-      password,
-      uploadImage,
-      email,
-    };
-    dispatch(registerUser(userInfo));
-  };
+  const { uploadImage, showPass, isLoading } = localStateInfo;
 
   return (
     <>
@@ -58,13 +37,31 @@ const Auth = () => {
           ) : (
             <img src={uploadImage} alt="Profile" />
           )}
-          <input type="file" id="image" onChange={(e) => preview(e)} />
+          <input
+            type="file"
+            id="image"
+            onChange={(e) => {
+              preview(e);
+              uploadProfileImage(e);
+            }}
+          />
           {uploadImage && (
-            <label htmlFor="change" className="changeImage">
+            <label
+              htmlFor="change"
+              className="changeImage"
+              onClick={deleteImage}
+            >
               <TbEdit /> Edit
             </label>
           )}
-          <input type="file" id="change" onChange={(e) => preview(e)} />
+          <input
+            type="file"
+            id="change"
+            onChange={(e) => {
+              preview(e);
+              uploadProfileImage(e);
+            }}
+          />
         </div>
 
         <form className="registerForm" onSubmit={(e) => e.preventDefault()}>
@@ -103,14 +100,18 @@ const Auth = () => {
             <p>
               {!showPass ? (
                 <BsEyeFill
-                  onClick={() => setShowPass(true)}
+                  onClick={() =>
+                    setLocalStateInfo({ ...localStateInfo, showPass: true })
+                  }
                   size={18}
                   cursor="pointer"
                   color="blueviolet"
                 />
               ) : (
                 <BsEyeSlashFill
-                  onClick={() => setShowPass(false)}
+                  onClick={() =>
+                    setLocalStateInfo({ ...localStateInfo, showPass: false })
+                  }
                   size={18}
                   cursor="pointer"
                   color="blueviolet"
@@ -120,7 +121,7 @@ const Auth = () => {
           </div>
 
           <button onClick={saveUser} type="button">
-            Register
+            {isLoading ? "Processing...." : "Register"}
           </button>
         </form>
 
@@ -132,4 +133,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Register;

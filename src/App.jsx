@@ -1,10 +1,17 @@
 import React from "react";
-import Auth from "./components/auth/Auth";
+import Register from "./components/auth/Register";
+import Notification from "./components/Notification/Notification";
+import { useAppContext } from "./store/appContext";
+import Login from "./components/auth/Login";
 
 function App() {
+  const { notification } = useAppContext();
+
   return (
     <main className="App">
-      <Auth />
+      {/* <Register /> */}
+      <Login />
+      {notification && <Notification />}
     </main>
   );
 }

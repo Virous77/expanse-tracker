@@ -21,7 +21,8 @@
   border-bottom-right-radius: 100px;
 }
 
-.authMain header {
+.authMain,
+.login header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -114,4 +115,15 @@
   width: 10rem;
   opacity: 0.3;
   transform: rotate(-30deg);
+}
+
+.login {
+  background-color: white;
+  padding: 2rem;
+  z-index: 32;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  position: fixed;
 }
