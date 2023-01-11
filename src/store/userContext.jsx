@@ -1,5 +1,10 @@
 import { useContext, useState, createContext } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { auth, db } from "../firebase/firebase.config";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import useUploadProfile from "../hooks/useUploadImage";
@@ -24,6 +29,7 @@ export const UserContextProvider = ({ children }) => {
     isLoggedIn: false,
   };
   const [userData, setUserData] = useState(initialState);
+  const [activeUser, setActiveUser] = useState("");
   const { userName, uniqueId, password, email } = userData;
   const { uploadImage } = localStateInfo;
 
@@ -85,6 +91,10 @@ export const UserContextProvider = ({ children }) => {
       await addDoc(collection(db, "users"), tempUserData);
       localStorage.setItem("expense", JSON.stringify({ isLogged: true }));
       localStorage.setItem("expenseProfile", JSON.stringify(imageAsset));
+      notificationSet({
+        message: "Account created Successfully!",
+        status: "success",
+      });
 
       // State Clear
       setUserData({
@@ -109,6 +119,74 @@ export const UserContextProvider = ({ children }) => {
       setLocalStateInfo({ ...localStateInfo, isLoading: false });
     }
   };
+
+  ////Login user
+  const loginUser = async () => {
+    setLocalStateInfo({ ...localStateInfo, isLoading: true });
+
+    ///validation
+    if (!password || !email) {
+      notificationSet({
+        message: "All field Must be filled!",
+        status: "error",
+      });
+      setLocalStateInfo({ ...localStateInfo, isLoading: false });
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem("expense", JSON.stringify({ isLogged: true }));
+
+      // State Clear
+      setUserData({
+        ...userData,
+        isLogged: true,
+        email: "",
+        password: "",
+        userName: "",
+        uniqueId: "",
+      });
+      setLocalStateInfo({
+        ...localStateInfo,
+        isLoading: false,
+      });
+    } catch (error) {
+      notificationSet({
+        message: "Something went wrong,Try again!",
+        status: "error",
+      });
+      setLocalStateInfo({ ...localStateInfo, isLoading: false });
+    }
+  };
+
+  ///Logout user
+  const logoutUser = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem("expense");
+      setUserData(initialState);
+    } catch (error) {
+      notificationSet({
+        message: "Something went wrong,Try again!",
+        status: "error",
+      });
+    }
+  };
+
+  //get ActiveUser
+  const getCurrentUser = () => {
+    setLocalStateInfo({ ...localStateInfo, isLoading: true });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setActiveUser(user);
+        setLocalStateInfo({ ...localStateInfo, isLoading: false });
+      } else {
+        setLocalStateInfo({ ...localStateInfo, isLoading: false });
+      }
+    });
+  };
   return (
     <UserContext.Provider
       value={{
@@ -120,6 +198,11 @@ export const UserContextProvider = ({ children }) => {
         localStateInfo,
         deleteImage,
         uploadProfileImage,
+        loginUser,
+        logoutUser,
+        getCurrentUser,
+        activeUser,
+        imageAsset,
       }}
     >
       {children}

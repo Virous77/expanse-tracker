@@ -6,3 +6,10 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgb(46, 46, 46);
+}

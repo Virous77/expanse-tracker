@@ -32,9 +32,11 @@ const useUploadProfile = () => {
   const deleteImage = () => {
     const deletRef = ref(storage, imageAsset);
 
-    deleteObject(deletRef).then(() => {
-      setImageAsset(null);
-    });
+    if (imageAsset) {
+      deleteObject(deletRef).then(() => {
+        setImageAsset(null);
+      });
+    }
   };
 
   return {

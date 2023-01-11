@@ -1,24 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Auth.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { userUserContext } from "../../store/userContext";
 import { BsCamera, BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
+import welcome from "../../assets/welcome.svg";
+import Header from "../Header";
 
 const Login = () => {
-  const { handleChange, userData, localStateInfo, setLocalStateInfo } =
-    userUserContext();
+  const [userImage, setUserImage] = useState("");
+  const {
+    handleChange,
+    userData,
+    localStateInfo,
+    setLocalStateInfo,
+    loginUser,
+  } = userUserContext();
   const { password, email } = userData;
   const { showPass, isLoading } = localStateInfo;
+
+  useEffect(() => {
+    const result = localStorage.getItem("expenseProfile");
+    const data = result ? JSON.parse(result) : "";
+    setUserImage(data);
+  }, []);
   return (
     <>
       <div className="overLay" />
       <section className="login">
-        <header>
-          <h1>Login</h1>
-          <AiOutlineClose size={22} cursor="pointer" />
-        </header>
+        <Header name="Login" />
 
-        <form onSubmit={(e) => e.stopPropagation()}>
+        <div className="loginUserImage">
+          <div className={`userProfile  ${userImage ? "" : "userPicBorder"}`}>
+            {!userImage ? (
+              <label>
+                <BsCamera size={25} />
+              </label>
+            ) : (
+              <img src={userImage} alt="ProfilePic" />
+            )}
+          </div>
+        </div>
+
+        <form onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
             placeholder="Email"
@@ -58,8 +81,14 @@ const Login = () => {
             </p>
           </div>
 
-          <button>{isLoading ? "Processing..." : "Login"}</button>
+          <button onClick={loginUser}>
+            {isLoading ? "Processing..." : "Login"}
+          </button>
         </form>
+
+        <div className="welcome">
+          <img src={welcome} alt="welcome" />
+        </div>
       </section>
     </>
   );

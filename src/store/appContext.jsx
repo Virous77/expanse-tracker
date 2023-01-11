@@ -20,7 +20,6 @@ export const AppContextProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         notification,
-        setNotification,
         notificationSet,
       }}
     >

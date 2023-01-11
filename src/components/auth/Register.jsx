@@ -5,6 +5,7 @@ import { BsCamera, BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { TbEdit } from "react-icons/tb";
 import register from "../../assets/register.svg";
 import { userUserContext } from "../../store/userContext";
+import Header from "../Header";
 
 const Register = () => {
   const {
@@ -24,10 +25,7 @@ const Register = () => {
     <>
       <div className="overLay" />
       <section className="authMain">
-        <header>
-          <h1>Register</h1>
-          <AiOutlineClose size={22} cursor="pointer" />
-        </header>
+        <Header name="Register" />
 
         <div className={`userProfile ${uploadImage ? "" : "userPicBorder"}`}>
           {!uploadImage ? (

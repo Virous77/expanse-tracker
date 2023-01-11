@@ -1,0 +1,122 @@
+.profile {
+  background-color: white;
+  padding: 2rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 32;
+  width: 40%;
+  height: 100%;
+}
+
+.profileImage {
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.profileImage img {
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.profileImage input {
+  display: none;
+}
+
+.changeProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: black;
+  color: white;
+  bottom: 0%;
+  padding: 2px 20px;
+  cursor: pointer;
+}
+
+.profileSec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+.profileId {
+  margin-top: 1rem;
+  color: rgb(45, 44, 44);
+}
+
+.profileId input {
+  margin-top: 1rem;
+  padding: 10px;
+  color: blueviolet;
+  font-size: 1rem;
+  border: 2px solid aqua;
+  outline: none;
+}
+
+.profileName {
+  margin-top: 2rem;
+}
+
+.profileName input {
+  padding: 10px;
+  color: blueviolet;
+  font-size: 1rem;
+  border: 2px solid aqua;
+  outline: none;
+}
+
+.profileName h3 {
+  text-transform: capitalize;
+  color: blueviolet;
+}
+
+.profileSec span {
+  color: blueviolet;
+  margin-top: 0.5rem;
+  font-size: 15px;
+}
+
+.editProfile {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 3rem;
+}
+
+.editProfile button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 8px 18px;
+  border: none;
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: scale 300ms ease-in-out;
+}
+
+.edit {
+  background-color: aqua;
+  color: black;
+}
+
+.logout {
+  background-color: black;
+  color: white;
+}
+
+.editProfile button:hover {
+  scale: 0.95;
+}
