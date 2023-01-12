@@ -6,6 +6,7 @@ import Login from "./components/auth/Login";
 import Expense from "./components/Expense/Expense";
 import Profile from "./components/profile/Profile";
 import { userUserContext } from "./store/userContext";
+import Calculator from "./components/calculator/Calculator";
 
 function App() {
   const { notification } = useAppContext();
@@ -20,7 +21,8 @@ function App() {
       {/* <Register /> */}
       {/* <Login /> */}
       {/* <Expense /> */}
-      <Profile />
+      <Calculator />
+      {/* <Profile /> */}
       {notification && <Notification />}
     </main>
   );
