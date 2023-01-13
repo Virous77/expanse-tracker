@@ -1,118 +1,146 @@
 import React, { useState } from "react";
 import "./Calculator.css";
+import { useAppContext } from "../../store/appContext";
 
 const Calculator = () => {
-  const value = [
-    {
-      id: 1,
-      name: "c",
-    },
-    {
-      id: 2,
-      name: "%",
-    },
-    {
-      id: 3,
-      name: "(2)",
-    },
-    {
-      id: 4,
-      name: "/",
-    },
-    {
-      id: 5,
-      name: "7",
-    },
-    {
-      id: 6,
-      name: "8",
-    },
-    {
-      id: 7,
-      name: "9",
-    },
-    {
-      id: 8,
-      name: "X",
-    },
-    {
-      id: 9,
-      name: "4",
-    },
-    {
-      id: 10,
-      name: "5",
-    },
-    {
-      id: 11,
-      name: "6",
-    },
-    {
-      id: 12,
-      name: "-",
-    },
-    {
-      id: 13,
-      name: "3",
-    },
-    {
-      id: 14,
-      name: "2",
-    },
-    {
-      id: 15,
-      name: "1",
-    },
-    {
-      id: 16,
-      name: "+",
-    },
-  ];
-
+  /////Local state
   const [firstEnt, setFirstEnt] = useState([]);
   const [secondEnt, setSecondEnt] = useState([]);
   const [arg, setArg] = useState(null);
-  // const [arg2, setArg2] = useState(false);
+  const [total, setTotal] = useState("");
 
+  ///Custom hooks
+  const { setShowCalc, showCalc } = useAppContext();
+
+  //Putting entry
   const handleInput = (id) => {
     if (arg) {
+      if (secondEnt.length >= 9) return;
+      if (id === "." && secondEnt.includes(".")) return;
       setSecondEnt([...secondEnt, id]);
-    } else {
+    }
+
+    if (!arg) {
+      if (firstEnt.length >= 9) return;
+      if (id === "." && firstEnt.includes(".")) return;
       setFirstEnt([...firstEnt, id]);
     }
   };
 
+  ///Validating maths
   const handleArg = (id) => {
+    ///Other Maths
     if (arg && id === "x") {
-      console.log(+firstEnt.join("") * +secondEnt.join(""));
+      setTotal(+firstEnt.join("") * +secondEnt.join(""));
     } else {
       setArg(id);
     }
 
     if (arg && id === "+") {
-      console.log(+firstEnt.join("") + +secondEnt.join(""));
+      setTotal(+firstEnt.join("") + +secondEnt.join(""));
     } else {
       setArg(id);
     }
 
     if (arg && id === "-") {
-      console.log(+firstEnt.join("") - +secondEnt.join(""));
+      setTotal(+firstEnt.join("") - +secondEnt.join(""));
     } else {
       setArg(id);
     }
+
+    if (arg && id === "/") {
+      setTotal(+firstEnt.join("") / +secondEnt.join(""));
+    } else {
+      setArg(id);
+    }
+
+    ///Square
+    if (id === "(2)") {
+      setTotal(+firstEnt.join("") * +firstEnt.join(""));
+    } else {
+      setArg(id);
+    }
+
+    ////Percentage
+    if (id === "%" && total) {
+      setTotal(total / 100);
+    }
+
+    if (id === "%" && !total) {
+      setTotal(+firstEnt.join("") / 100);
+    }
+
+    ///Equal Button
+    if (arg === "+" && id === "=") {
+      setTotal(+firstEnt.join("") + +secondEnt.join(""));
+    }
+
+    if (arg === "/" && id === "=") {
+      setTotal(+firstEnt.join("") / +secondEnt.join(""));
+    }
+
+    if (arg === "-" && id === "=") {
+      setTotal(+firstEnt.join("") - +secondEnt.join(""));
+    }
+
+    if (arg === "x" && id === "=") {
+      setTotal(+firstEnt.join("") * +secondEnt.join(""));
+    }
+
+    ///Reset State
+    if (id === "C") {
+      setArg(null);
+      setFirstEnt([]);
+      setSecondEnt([]);
+      setTotal("");
+    }
+  };
+
+  //Format Number
+  const activeInput = (number) => {
+    const c = Number(number?.join(""))
+      ?.toString()
+      ?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    console.log(c);
+    return c;
+  };
+
+  const totalNumber = (number) => {
+    return Number(number)
+      ?.toString()
+      ?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
     <>
-      <div className="overLay" />
+      <div className="overLay" onClick={() => setShowCalc(false)} />
       <section className="calcMain">
-        <h1>{firstEnt}</h1>
-        <p>{secondEnt}</p>
+        {total ? (
+          <h1>
+            {String(total)?.includes(".")
+              ? Number(total)?.toFixed(2)
+              : totalNumber(total)}
+          </h1>
+        ) : (
+          <div>
+            {!arg ? (
+              <h1>{firstEnt.length === 0 ? 0 : activeInput(firstEnt)} </h1>
+            ) : (
+              <h1>
+                {secondEnt.length === 0
+                  ? activeInput(firstEnt)
+                  : activeInput(secondEnt)}
+              </h1>
+            )}
+          </div>
+        )}
+
         <div className="clac">
-          <span>C</span>
-          <span>%</span>
-          <span>(2)</span>
-          <span>/</span>
+          <span onClick={() => handleArg("C")}>C</span>
+          <span onClick={() => handleArg("%")}>%</span>
+          <span onClick={() => handleArg("(2)")}>(2)</span>
+          <span onClick={() => handleArg("/")}>/</span>
           <span onClick={() => handleInput(9)}>9</span>
           <span onClick={() => handleInput(8)}>8</span>
           <span onClick={() => handleInput(7)}>7</span>
@@ -127,10 +155,14 @@ const Calculator = () => {
           <span onClick={() => handleArg("+")}>+</span>
         </div>
         <div className="calcZero">
-          <span className="zero">0</span>
+          <span className="zero" onClick={() => handleInput(0)}>
+            0
+          </span>
           <div className="equal">
-            <span>.</span>
-            <span className="dot">=</span>
+            <span onClick={() => handleInput(".")}>.</span>
+            <span className="dot" onClick={() => handleArg("=")}>
+              =
+            </span>
           </div>
         </div>
       </section>

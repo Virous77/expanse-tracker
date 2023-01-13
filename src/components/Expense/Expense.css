@@ -1,0 +1,21 @@
+.expenseMain {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.eContent {
+  background-color: aquamarine;
+}
+
+.eSideMain h1 {
+  padding: 8px;
+  background-color: blueviolet;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.menu {
+  padding: 8px;
+}

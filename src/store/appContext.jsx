@@ -4,6 +4,7 @@ const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
   const [notification, setNotification] = useState("");
+  const [showCalc, setShowCalc] = useState(false);
 
   //Notification creating
   const notificationSet = (input) => {
@@ -21,6 +22,8 @@ export const AppContextProvider = ({ children }) => {
       value={{
         notification,
         notificationSet,
+        setShowCalc,
+        showCalc,
       }}
     >
       {children}

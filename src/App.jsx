@@ -7,9 +7,10 @@ import Expense from "./components/Expense/Expense";
 import Profile from "./components/profile/Profile";
 import { userUserContext } from "./store/userContext";
 import Calculator from "./components/calculator/Calculator";
+import { FcCalculator } from "react-icons/fc";
 
 function App() {
-  const { notification } = useAppContext();
+  const { notification, setShowCalc, showCalc } = useAppContext();
   const { getCurrentUser } = userUserContext();
 
   useEffect(() => {
@@ -20,10 +21,13 @@ function App() {
     <main className="App">
       {/* <Register /> */}
       {/* <Login /> */}
-      {/* <Expense /> */}
-      <Calculator />
+      <Expense />
+      {showCalc && <Calculator />}
       {/* <Profile /> */}
       {notification && <Notification />}
+      <button className="showCalc" onClick={() => setShowCalc(!showCalc)}>
+        <FcCalculator size={35} />
+      </button>
     </main>
   );
 }
