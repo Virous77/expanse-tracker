@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Profile.css";
 import Header from "../Header";
 import { userUserContext } from "../../store/userContext";
-import useFetchCollectionByUid from "../../hooks/useFetchUserByUid";
 import { TbEdit } from "react-icons/tb";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useEffect } from "react";
@@ -13,14 +12,14 @@ import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 const Profile = () => {
   const {
-    activeUser,
     deleteImage,
     uploadProfileImage,
     logoutUser,
     imageAsset,
+    data,
+    loading,
   } = userUserContext();
-  const { data, loading } = useFetchCollectionByUid(activeUser.uid, "users");
-  const { notificationSet } = useAppContext();
+  const { notificationSet, setShowModal } = useAppContext();
 
   const initialState = {
     name: data[0]?.name,
@@ -85,7 +84,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="overLay" />
+      <div className="overLay" onClick={() => setShowModal("")} />
       <section className="profile">
         <Header name="Profile" />
 

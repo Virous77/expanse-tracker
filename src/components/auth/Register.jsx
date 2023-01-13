@@ -1,11 +1,11 @@
 import React from "react";
 import "./Auth.css";
-import { AiOutlineClose } from "react-icons/ai";
 import { BsCamera, BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { TbEdit } from "react-icons/tb";
 import register from "../../assets/register.svg";
 import { userUserContext } from "../../store/userContext";
 import Header from "../Header";
+import { useAppContext } from "../../store/appContext";
 
 const Register = () => {
   const {
@@ -21,9 +21,11 @@ const Register = () => {
   const { userName, uniqueId, password, email } = userData;
   const { uploadImage, showPass, isLoading } = localStateInfo;
 
+  const { setShowModal } = useAppContext();
+
   return (
     <>
-      <div className="overLay" />
+      <div className="overLay" onClick={() => setShowModal("")} />
       <section className="authMain">
         <Header name="Register" />
 

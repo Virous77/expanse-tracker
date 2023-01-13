@@ -10,7 +10,7 @@ const Calculator = () => {
   const [total, setTotal] = useState("");
 
   ///Custom hooks
-  const { setShowCalc, showCalc } = useAppContext();
+  const { setShowModal } = useAppContext();
 
   //Putting entry
   const handleInput = (id) => {
@@ -114,7 +114,7 @@ const Calculator = () => {
 
   return (
     <>
-      <div className="overLay" onClick={() => setShowCalc(false)} />
+      <div className="overLay" onClick={() => setShowModal("")} />
       <section className="calcMain">
         {total ? (
           <h1>

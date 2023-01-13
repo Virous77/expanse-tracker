@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Auth.css";
-import { AiOutlineClose } from "react-icons/ai";
 import { userUserContext } from "../../store/userContext";
 import { BsCamera, BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import welcome from "../../assets/welcome.svg";
 import Header from "../Header";
+import { useAppContext } from "../../store/appContext";
 
 const Login = () => {
   const [userImage, setUserImage] = useState("");
@@ -18,6 +18,8 @@ const Login = () => {
   const { password, email } = userData;
   const { showPass, isLoading } = localStateInfo;
 
+  const { setShowModal } = useAppContext();
+
   useEffect(() => {
     const result = localStorage.getItem("expenseProfile");
     const data = result ? JSON.parse(result) : "";
@@ -25,7 +27,7 @@ const Login = () => {
   }, []);
   return (
     <>
-      <div className="overLay" />
+      <div className="overLay" onClick={() => setShowModal("")} />
       <section className="login">
         <Header name="Login" />
 

@@ -9,6 +9,7 @@ import { auth, db } from "../firebase/firebase.config";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import useUploadProfile from "../hooks/useUploadImage";
 import { useAppContext } from "./appContext";
+import useFetchCollectionByUid from "../hooks/useFetchUserByUid";
 
 const UserContext = createContext();
 
@@ -39,7 +40,8 @@ export const UserContextProvider = ({ children }) => {
     imageAsset,
     deleteImage,
   } = useUploadProfile();
-  const { notificationSet } = useAppContext();
+  const { notificationSet, setShowModal } = useAppContext();
+  const { data, loading } = useFetchCollectionByUid(activeUser.uid, "users");
 
   ///Form inputHandler
   const handleChange = (e) => {
@@ -91,6 +93,7 @@ export const UserContextProvider = ({ children }) => {
       await addDoc(collection(db, "users"), tempUserData);
       localStorage.setItem("expense", JSON.stringify({ isLogged: true }));
       localStorage.setItem("expenseProfile", JSON.stringify(imageAsset));
+      setShowModal("");
       notificationSet({
         message: "Account created Successfully!",
         status: "success",
@@ -141,7 +144,7 @@ export const UserContextProvider = ({ children }) => {
       // State Clear
       setUserData({
         ...userData,
-        isLogged: true,
+        isLoggedIn: true,
         email: "",
         password: "",
         userName: "",
@@ -151,6 +154,7 @@ export const UserContextProvider = ({ children }) => {
         ...localStateInfo,
         isLoading: false,
       });
+      setShowModal("");
     } catch (error) {
       notificationSet({
         message: "Something went wrong,Try again!",
@@ -203,6 +207,10 @@ export const UserContextProvider = ({ children }) => {
         getCurrentUser,
         activeUser,
         imageAsset,
+        data,
+        loading,
+        setUserData,
+        initialState,
       }}
     >
       {children}

@@ -8,24 +8,36 @@ import Profile from "./components/profile/Profile";
 import { userUserContext } from "./store/userContext";
 import Calculator from "./components/calculator/Calculator";
 import { FcCalculator } from "react-icons/fc";
+import Loader from "./components/UI/Loader";
 
 function App() {
-  const { notification, setShowCalc, showCalc } = useAppContext();
-  const { getCurrentUser } = userUserContext();
+  const { notification, setShowModal, showModal } = useAppContext();
+  const { getCurrentUser, loading, setUserData, userData, initialState } =
+    userUserContext();
 
   useEffect(() => {
     getCurrentUser();
-  }, []);
+    const result = localStorage.getItem("expense");
+    const userActive = result ? JSON.parse(result) : false;
+
+    if (userActive) {
+      setUserData({ ...userData, isLoggedIn: true });
+    } else {
+      setUserData(initialState);
+    }
+  }, [userData.isLoggedIn]);
+
+  if (loading) return <Loader />;
 
   return (
     <main className="App">
-      {/* <Register /> */}
-      {/* <Login /> */}
+      {showModal === "signup" && <Register />}
+      {showModal === "signin" && <Login />}
       <Expense />
-      {showCalc && <Calculator />}
-      {/* <Profile /> */}
+      {showModal === "calac" && <Calculator />}
+      {showModal === "profile" && <Profile />}
       {notification && <Notification />}
-      <button className="showCalc" onClick={() => setShowCalc(!showCalc)}>
+      <button className="showCalc" onClick={() => setShowModal("calac")}>
         <FcCalculator size={35} />
       </button>
     </main>

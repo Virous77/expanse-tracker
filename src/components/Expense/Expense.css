@@ -3,11 +3,38 @@
   grid-template-columns: 250px 1fr;
   max-width: 1200px;
   margin: auto;
+  margin-top: 5rem;
 }
 
 .eContent {
-  background-color: aquamarine;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 8px 1rem;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
+
+.eContent header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eUser {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eUser h4 {
+  text-transform: capitalize;
+}
+
+.eContent header span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+/* ///SideBar///////////////////// */
 
 .eSideMain h1 {
   padding: 8px;
@@ -16,6 +43,23 @@
   margin-bottom: 1rem;
 }
 
-.menu {
+.sideProfile {
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+  grid-template-columns: 40px 1fr;
+  font-weight: 600;
+  cursor: pointer;
   padding: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.sideProfile img {
+  border-radius: 100%;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.sideProfile:hover {
+  background-color: whitesmoke;
 }

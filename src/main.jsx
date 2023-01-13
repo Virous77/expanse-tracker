@@ -4,20 +4,16 @@ import App from "./App";
 import "./index.css";
 import { UserContextProvider } from "./store/userContext";
 import { AppContextProvider } from "./store/appContext";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-
-const queryClient = new QueryClient();
+import { ExpenseContextProvider } from "./store/expenseContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AppContextProvider>
-        <UserContextProvider>
+    <AppContextProvider>
+      <UserContextProvider>
+        <ExpenseContextProvider>
           <App />
-          <ReactQueryDevtools />
-        </UserContextProvider>
-      </AppContextProvider>
-    </QueryClientProvider>
+        </ExpenseContextProvider>
+      </UserContextProvider>
+    </AppContextProvider>
   </React.StrictMode>
 );
