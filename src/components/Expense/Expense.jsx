@@ -3,7 +3,7 @@ import "./Expense.css";
 import Sidebar from "./Sidebar";
 import { userUserContext } from "../../store/userContext";
 import { currentMoment, formatDate } from "../../utils/function";
-import ExpenseForm from "./ExpenseForm";
+import Tracker from "./Tracker";
 
 const Expense = () => {
   const { data } = userUserContext();
@@ -21,7 +21,7 @@ const Expense = () => {
           <span>{formatDate(new Date()?.toLocaleDateString())}</span>
         </header>
 
-        <ExpenseForm />
+        <Tracker />
       </section>
     </main>
   );

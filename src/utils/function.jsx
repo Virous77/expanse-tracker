@@ -40,5 +40,5 @@ export const month = [
 export const formatDate = (id) => {
   const splitDate = id.split("/");
 
-  return month[splitDate[0] - 1] + " " + splitDate[1] + " " + splitDate[2];
+  return month[splitDate[0] - 1] + " " + splitDate[1] + ", " + splitDate[2];
 };

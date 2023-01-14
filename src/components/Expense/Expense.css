@@ -63,3 +63,90 @@
 .sideProfile:hover {
   background-color: whitesmoke;
 }
+
+.subTracker {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.eForm {
+  margin-top: 2rem;
+}
+
+.eForm header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: flex-start;
+}
+
+.eForm span {
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+  color: rgb(47, 47, 47);
+}
+
+.eForm span:hover {
+  color: blueviolet;
+}
+
+.eOpBorder {
+  border-bottom: 3px solid blueviolet;
+}
+
+.eOpBorderN {
+  border-bottom: 3px solid transparent;
+}
+
+.incomeForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.incomeForm fieldset {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.incomeForm input {
+  width: 100%;
+  padding: 8px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.incomeForm label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+}
+
+.incomeForm button {
+  color: white;
+  padding: 9px;
+  background-color: blueviolet;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.incomeForm button:hover {
+  background-color: rgb(134, 17, 244);
+}
+
+.incomeForm select {
+  outline: none;
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+.incomeForm option {
+  text-transform: capitalize;
+}
