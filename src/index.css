@@ -13,3 +13,13 @@
   justify-content: space-between;
   color: rgb(46, 46, 46);
 }
+
+body::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}

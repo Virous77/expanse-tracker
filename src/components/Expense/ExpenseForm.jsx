@@ -4,22 +4,19 @@ import { expenseType } from "../../utils/data";
 import { useExpense } from "../../store/expenseContext";
 
 const ExpenseForm = () => {
-  const { formData } = useExpense();
+  const { formData, saveFormData } = useExpense();
   const { expense } = formData;
-
-  const saveExpense = () => {
-    console.log(formData);
-  };
 
   return (
     <Form
       type={expenseType}
       title="Expense-Type"
       buttonTitle="Add Expense"
-      saveForm={saveExpense}
+      saveForm={saveFormData}
       selectHead="Select Expense"
       method={expense}
       name="expense"
+      subName="Other-Expense"
     />
   );
 };

@@ -9,6 +9,7 @@ import { userUserContext } from "./store/userContext";
 import Calculator from "./components/calculator/Calculator";
 import { FcCalculator } from "react-icons/fc";
 import Loader from "./components/UI/Loader";
+import Transaction from "./components/Expense/Transaction";
 
 function App() {
   const { notification, setShowModal, showModal } = useAppContext();
@@ -36,10 +37,14 @@ function App() {
       <Expense />
       {showModal === "calac" && <Calculator />}
       {showModal === "profile" && <Profile />}
+      {/* {showModal === 'transaction' && <Transaction/> } */}
+      <Transaction />
       {notification && <Notification />}
-      <button className="showCalc" onClick={() => setShowModal("calac")}>
-        <FcCalculator size={35} />
-      </button>
+      {!showModal && (
+        <button className="showCalc" onClick={() => setShowModal("calac")}>
+          <FcCalculator size={35} />
+        </button>
+      )}
     </main>
   );
 }

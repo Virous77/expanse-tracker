@@ -38,7 +38,43 @@ export const month = [
 ];
 
 export const formatDate = (id) => {
-  const splitDate = id.split("/");
+  const splitDate = id?.split("/");
 
-  return month[splitDate[0] - 1] + " " + splitDate[1] + ", " + splitDate[2];
+  const date =
+    splitDate &&
+    month[splitDate[0] - 1] + " " + splitDate[1] + ", " + splitDate[2];
+
+  return date;
 };
+
+export const validate = ({ type, input, types, errorSet, formType }) => {
+  if (formType === input) {
+    if (type !== "others") {
+      if (!type || !types.date || !types.amount) {
+        errorSet({
+          message: "Fill all the field, then proceed!",
+          status: "error",
+        });
+        return "error";
+      }
+    } else {
+      if (!types.others || !types.date || !types.amount) {
+        errorSet({
+          message: "Fill all the field, then proceed!",
+          status: "error",
+        });
+        return "error";
+      }
+    }
+  }
+};
+
+export function convertTimestamp(timestamp) {
+  let dd = timestamp?.slice(0, 2);
+  let name = +timestamp?.slice(3, 5);
+  let names = month[name - 1];
+  let yyyy = timestamp?.slice(6, 10);
+
+  const date = dd + " " + names + " " + yyyy;
+  return date;
+}

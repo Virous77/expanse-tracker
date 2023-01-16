@@ -2,6 +2,7 @@ import React from "react";
 import { useExpense } from "../../store/expenseContext";
 import ExpenseForm from "./ExpenseForm";
 import IncomeForm from "./IncomeForm";
+import Chart from "./Chart";
 
 const Tracker = () => {
   const { activeType, setActiveType } = useExpense();
@@ -27,7 +28,7 @@ const Tracker = () => {
         {activeType === "income" && <IncomeForm />}
         {activeType === "expense" && <ExpenseForm />}
 
-        <p>Cool</p>
+        <Chart />
       </section>
     </main>
   );

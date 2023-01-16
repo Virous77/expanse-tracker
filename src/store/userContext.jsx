@@ -41,7 +41,11 @@ export const UserContextProvider = ({ children }) => {
     deleteImage,
   } = useUploadProfile();
   const { notificationSet, setShowModal } = useAppContext();
-  const { data, loading } = useFetchCollectionByUid(activeUser.uid, "users");
+  const { data, loading } = useFetchCollectionByUid(
+    "uid",
+    activeUser.uid,
+    "users"
+  );
 
   ///Form inputHandler
   const handleChange = (e) => {

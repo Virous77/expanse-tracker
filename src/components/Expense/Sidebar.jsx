@@ -3,6 +3,7 @@ import { userUserContext } from "../../store/userContext";
 import { RiLogoutCircleRLine, RiUserReceived2Line } from "react-icons/ri";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { useAppContext } from "../../store/appContext";
+import { MdAccountBalanceWallet } from "react-icons/md";
 
 const Sidebar = () => {
   const { data, logoutUser, userData } = userUserContext();
@@ -18,6 +19,16 @@ const Sidebar = () => {
           <div className="sideProfile" onClick={() => setShowModal("profile")}>
             <img src={data[0]?.photoURL} alt="user" />
             PROFILE
+          </div>
+        )}
+
+        {isLoggedIn && (
+          <div
+            className="sideProfile"
+            onClick={() => setShowModal("transaction")}
+          >
+            <MdAccountBalanceWallet size={32} />
+            Transaction
           </div>
         )}
 

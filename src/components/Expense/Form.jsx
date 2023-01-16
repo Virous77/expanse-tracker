@@ -9,9 +9,10 @@ const Form = ({
   selectHead,
   method,
   name,
+  subName,
 }) => {
-  const { formData, handleChange } = useExpense();
-  const { date, notes, amount } = formData;
+  const { formData, handleChange, formLoading } = useExpense();
+  const { others, date, notes, amount } = formData;
 
   return (
     <>
@@ -32,6 +33,18 @@ const Form = ({
             ))}
           </select>
         </fieldset>
+
+        {method === "others" && (
+          <fieldset>
+            <label htmlFor="others">{subName}</label>
+            <input
+              type="text"
+              onChange={handleChange}
+              name="others"
+              value={others}
+            />
+          </fieldset>
+        )}
 
         <fieldset>
           <label htmlFor="amount">Amount</label>
@@ -58,7 +71,9 @@ const Form = ({
           />
         </fieldset>
 
-        <button onClick={saveForm}>{buttonTitle}</button>
+        <button onClick={saveForm} disabled={formLoading}>
+          {formLoading ? "Processing.." : buttonTitle}
+        </button>
       </form>
     </>
   );
