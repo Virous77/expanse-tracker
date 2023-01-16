@@ -60,7 +60,7 @@ export const expenseType = [
   },
   {
     id: 8,
-    name: "gifts",
+    name: "gift",
   },
   {
     id: 9,

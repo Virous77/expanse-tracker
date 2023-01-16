@@ -1,31 +1,47 @@
 import React, { useState } from "react";
-import { formatDate } from "../../utils/function";
+import { formatDate, handleIcon, formatDate2 } from "../../utils/function";
+import { BsFillNutFill } from "react-icons/bs";
 
 const TransactionList = ({ data }) => {
-  const [showDetails, setShowDetails] = useState(true);
+  const [showDetails, setShowDetails] = useState("");
 
   return (
     <section className="transListMain">
       {data &&
-        data?.map((item) => (
+        data?.map((item, idx) => (
           <div
             className={`transList ${
               item.type === "income" ? "tIncBorder" : "tExpBorder"
             }`}
             key={item.id}
           >
-            <div className="TIcon"></div>
-            <div className="TContent">
-              <h3>{item.formType}</h3>
-              <span>{item.date}</span>
-            </div>
-            <div className="tAmount">
-              <span>{item.amount}$</span>
+            <div
+              className="wrap"
+              onClick={() => {
+                if (showDetails === idx) {
+                  setShowDetails("");
+                } else {
+                  setShowDetails(idx);
+                }
+              }}
+            >
+              <p
+                className={`TIcon ${
+                  item.type === "income" ? "greenIcon" : "redIcon"
+                }`}
+              >
+                {handleIcon(item.formType) || <BsFillNutFill />}
+              </p>
+              <div className="TContent">
+                <h3>{item.formType}</h3>
+                <span>{formatDate2(item.date)}</span>
+              </div>
+              <span className="tAmount">{item.amount}$</span>
             </div>
 
-            {showDetails && (
-              <div>
-                <span>Type: {item.type}</span>
+            {showDetails === idx && (
+              <div className="Tshow">
+                <span>Method:- {item.type}</span>
                 <p>{item.note && item.note}</p>
 
                 <b>

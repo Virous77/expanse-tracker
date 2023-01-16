@@ -4,7 +4,6 @@ import "./Transaction.css";
 import Header from "../Header";
 import useFetchCollectionByUid from "../../hooks/useFetchUserByUid";
 import { userUserContext } from "../../store/userContext";
-import Loader from "../UI/Loader";
 import { BiWalletAlt } from "react-icons/bi";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import TransactionList from "./TransactionList";
@@ -12,11 +11,7 @@ import TransactionList from "./TransactionList";
 const Transaction = () => {
   const { setShowModal } = useAppContext();
   const { activeUser } = userUserContext();
-  const { data, loading } = useFetchCollectionByUid(
-    "userId",
-    activeUser.uid,
-    "expense"
-  );
+  const { data } = useFetchCollectionByUid("userId", activeUser.uid, "expense");
 
   const totalIncome =
     data &&
@@ -36,7 +31,7 @@ const Transaction = () => {
 
   return (
     <>
-      {/* <div className="overLay" onClick={() => setShowModal("")} /> */}
+      <div className="overLay" onClick={() => setShowModal("")} />
       <section className="trancMain">
         <Header name="Transaction" />
 

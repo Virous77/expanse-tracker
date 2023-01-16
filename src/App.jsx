@@ -37,8 +37,7 @@ function App() {
       <Expense />
       {showModal === "calac" && <Calculator />}
       {showModal === "profile" && <Profile />}
-      {/* {showModal === 'transaction' && <Transaction/> } */}
-      <Transaction />
+      {showModal === "transaction" && <Transaction />}
       {notification && <Notification />}
       {!showModal && (
         <button className="showCalc" onClick={() => setShowModal("calac")}>
