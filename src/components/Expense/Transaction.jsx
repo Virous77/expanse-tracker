@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppContext } from "../../store/appContext";
 import "./Transaction.css";
 import Header from "../Header";
@@ -7,11 +7,14 @@ import { userUserContext } from "../../store/userContext";
 import { BiWalletAlt } from "react-icons/bi";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import TransactionList from "./TransactionList";
+import Filter from "../Filter/Filter";
+import { useFilter } from "../../store/filterContext";
 
 const Transaction = () => {
-  const { setShowModal } = useAppContext();
+  const { setShowModal, filter, setShowFilter } = useAppContext();
   const { activeUser } = userUserContext();
   const { data } = useFetchCollectionByUid("userId", activeUser.uid, "expense");
+  const { transactionData, setTransactionData, setHoldData } = useFilter();
 
   const totalIncome =
     data &&
@@ -29,10 +32,15 @@ const Transaction = () => {
 
   const total = totalIncome - totalExpense;
 
+  useEffect(() => {
+    setTransactionData(data);
+    setHoldData(data);
+  }, [data]);
+
   return (
     <>
       <div className="overLay" onClick={() => setShowModal("")} />
-      <section className="trancMain">
+      <section className="trancMain" onClick={() => setShowFilter(false)}>
         <Header name="Transaction" />
 
         <header className="incomeInfo">
@@ -49,7 +57,8 @@ const Transaction = () => {
             <BiWalletAlt size={20} /> Total: {total}$
           </span>
         </header>
-        <TransactionList data={data} />
+        <TransactionList data={transactionData} filter={filter} />
+        {filter && <Filter />}
       </section>
     </>
   );

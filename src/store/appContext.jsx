@@ -5,6 +5,7 @@ const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const [notification, setNotification] = useState("");
   const [showModal, setShowModal] = useState("");
+  const [filter, setShowFilter] = useState(false);
 
   //Notification creating
   const notificationSet = (input) => {
@@ -24,6 +25,8 @@ export const AppContextProvider = ({ children }) => {
         notificationSet,
         showModal,
         setShowModal,
+        filter,
+        setShowFilter,
       }}
     >
       {children}

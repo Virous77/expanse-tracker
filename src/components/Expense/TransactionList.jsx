@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { formatDate, handleIcon, formatDate2 } from "../../utils/function";
 import { BsFillNutFill } from "react-icons/bs";
 
-const TransactionList = ({ data }) => {
+const TransactionList = ({ data, filter }) => {
   const [showDetails, setShowDetails] = useState("");
 
   return (
@@ -18,10 +18,12 @@ const TransactionList = ({ data }) => {
             <div
               className="wrap"
               onClick={() => {
-                if (showDetails === idx) {
-                  setShowDetails("");
-                } else {
-                  setShowDetails(idx);
+                if (!filter) {
+                  if (showDetails === idx) {
+                    setShowDetails("");
+                  } else {
+                    setShowDetails(idx);
+                  }
                 }
               }}
             >

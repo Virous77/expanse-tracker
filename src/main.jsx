@@ -5,13 +5,16 @@ import "./index.css";
 import { UserContextProvider } from "./store/userContext";
 import { AppContextProvider } from "./store/appContext";
 import { ExpenseContextProvider } from "./store/expenseContext";
+import { FilterContextProvider } from "./store/filterContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AppContextProvider>
       <UserContextProvider>
         <ExpenseContextProvider>
-          <App />
+          <FilterContextProvider>
+            <App />
+          </FilterContextProvider>
         </ExpenseContextProvider>
       </UserContextProvider>
     </AppContextProvider>

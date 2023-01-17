@@ -1,0 +1,99 @@
+.filter {
+  background-color: white;
+  position: absolute;
+  width: 80%;
+  right: 5%;
+  z-index: 10;
+  bottom: 15%;
+  padding: 1rem;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.filter header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.allF {
+  width: 100%;
+}
+
+.allF label {
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  font-size: 1rem;
+  color: blueviolet;
+  font-weight: 600;
+}
+
+.allF select {
+  width: 100%;
+  padding: 7px 2px;
+  font-size: 1rem;
+  outline: none;
+  text-transform: capitalize;
+}
+
+.fTime {
+  margin-top: 1rem;
+}
+
+.fTimeList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.fTimeList button {
+  padding: 6px;
+  border: none;
+  cursor: pointer;
+  border: 2px;
+  font-size: 1rem;
+  color: white;
+}
+
+.fAmount {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.fAmount input {
+  outline: none;
+  font-size: 1rem;
+  padding: 7px;
+}
+
+.fAction {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fAction button {
+  color: white;
+  padding: 8px 18px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.activeF {
+  background-color: blueviolet;
+}
+
+.noActiveF {
+  background-color: rgb(173, 172, 172);
+}
+
+.fAmountMain {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}

@@ -10,9 +10,11 @@ import Calculator from "./components/calculator/Calculator";
 import { FcCalculator } from "react-icons/fc";
 import Loader from "./components/UI/Loader";
 import Transaction from "./components/Expense/Transaction";
+import { BsFilterCircleFill } from "react-icons/bs";
 
 function App() {
-  const { notification, setShowModal, showModal } = useAppContext();
+  const { notification, setShowModal, showModal, setShowFilter } =
+    useAppContext();
   const { getCurrentUser, loading, setUserData, userData, initialState } =
     userUserContext();
 
@@ -42,6 +44,16 @@ function App() {
       {!showModal && (
         <button className="showCalc" onClick={() => setShowModal("calac")}>
           <FcCalculator size={35} />
+        </button>
+      )}
+
+      {showModal === "transaction" && (
+        <button className="showCalc">
+          <BsFilterCircleFill
+            size={35}
+            color="white"
+            onClick={() => setShowFilter(true)}
+          />
         </button>
       )}
     </main>
