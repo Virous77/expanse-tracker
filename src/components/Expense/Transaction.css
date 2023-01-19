@@ -41,8 +41,11 @@
   flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
-  height: 75vh;
   overflow-y: scroll;
+}
+
+.MTrans {
+  height: 75vh;
 }
 
 .transListMain::-webkit-scrollbar {

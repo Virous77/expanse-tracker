@@ -1,0 +1,74 @@
+.chart {
+  display: flex;
+  gap: 5rem;
+  width: 600px;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.chartMain h1 {
+  text-align: center;
+}
+
+.chartMain {
+  margin: auto;
+}
+
+.chartMain button {
+  border: 2px solid silver;
+  padding: 7px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: white;
+}
+
+.chartMain button:hover {
+  background-color: whitesmoke;
+}
+
+.chartMain p {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.incomeTags {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-transform: capitalize;
+  place-items: center;
+  gap: 0.5rem;
+}
+
+.tagsList {
+  padding: 3px 10px;
+  background-color: green;
+  color: white;
+  border-radius: 2px;
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.ppp {
+  width: 300px;
+  color: #8a2be2;
+}
+
+.ccc {
+  background-color: red;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5rem;
+  flex-direction: column;
+}
+
+.empty img {
+  width: 10rem;
+  height: 10rem;
+}

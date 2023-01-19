@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Filter.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { useAppContext } from "../../store/appContext";
@@ -6,18 +6,10 @@ import { useFilter } from "../../store/filterContext";
 
 const Filter = () => {
   const { setShowFilter } = useAppContext();
-  const {
-    time,
-    setTime,
-    methodRef,
-    handleFilter,
-    amountFirstRef,
-    amountSecondRef,
-    transactionData,
-    setTransactionData,
-    holdData,
-    setHoldData,
-  } = useFilter();
+  const [time, setTime] = useState("");
+
+  const { methodRef, handleFilter, amountFirstRef, amountSecondRef, date } =
+    useFilter();
 
   return (
     <section className="filter" onClick={(e) => e.stopPropagation()}>
@@ -43,22 +35,31 @@ const Filter = () => {
 
         <div className="fTimeList">
           <button
-            className={time === 10 ? "activeF" : "noActiveF"}
-            onClick={() => setTime(10)}
+            className={time === 5 ? "activeF" : "noActiveF"}
+            onClick={() => {
+              date(5);
+              setTime(5);
+            }}
           >
-            10 Days
+            05 Days
+          </button>
+          <button
+            className={time === 15 ? "activeF" : "noActiveF"}
+            onClick={() => {
+              date(15);
+              setTime(15);
+            }}
+          >
+            15 Days
           </button>
           <button
             className={time === 30 ? "activeF" : "noActiveF"}
-            onClick={() => setTime(30)}
+            onClick={() => {
+              date(30);
+              setTime(30);
+            }}
           >
             30 Days
-          </button>
-          <button
-            className={time === 90 ? "activeF" : "noActiveF"}
-            onClick={() => setTime(90)}
-          >
-            90 Days
           </button>
         </div>
       </div>
@@ -78,13 +79,19 @@ const Filter = () => {
       <div className="fAction">
         <button
           style={{ backgroundColor: "black" }}
-          onClick={() => handleFilter("clear")}
+          onClick={() => {
+            handleFilter("clear");
+            setShowFilter("");
+          }}
         >
           Clear
         </button>
         <button
           style={{ backgroundColor: "blueviolet" }}
-          onClick={() => handleFilter("save")}
+          onClick={() => {
+            handleFilter("save");
+            setShowFilter("");
+          }}
         >
           Submit
         </button>

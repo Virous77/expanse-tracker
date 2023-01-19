@@ -1,9 +1,10 @@
 import React from "react";
 import { userUserContext } from "../../store/userContext";
 import { RiLogoutCircleRLine, RiUserReceived2Line } from "react-icons/ri";
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineUserAdd, AiFillPieChart } from "react-icons/ai";
 import { useAppContext } from "../../store/appContext";
 import { MdAccountBalanceWallet } from "react-icons/md";
+import user from "../../assets/user.svg";
 
 const Sidebar = () => {
   const { data, logoutUser, userData } = userUserContext();
@@ -17,7 +18,7 @@ const Sidebar = () => {
       <div className="menu">
         {isLoggedIn && (
           <div className="sideProfile" onClick={() => setShowModal("profile")}>
-            <img src={data[0]?.photoURL} alt="user" />
+            <img src={data[0]?.photoURL || user} alt="user" />
             PROFILE
           </div>
         )}
@@ -29,6 +30,13 @@ const Sidebar = () => {
           >
             <MdAccountBalanceWallet size={32} />
             Transaction
+          </div>
+        )}
+
+        {isLoggedIn && (
+          <div className="sideProfile" onClick={() => setShowModal("chart")}>
+            <AiFillPieChart size={32} />
+            Chart
           </div>
         )}
 

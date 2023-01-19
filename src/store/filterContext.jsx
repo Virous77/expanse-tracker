@@ -11,6 +11,37 @@ export const FilterContextProvider = ({ children }) => {
   const amountFirstRef = useRef();
   const amountSecondRef = useRef();
 
+  const totalIncome =
+    holdData &&
+    holdData
+      ?.filter((a) => a.type === "income")
+      .map((c) => +c.amount)
+      ?.reduce((acc, curr) => acc + curr, 0);
+
+  const totalExpense =
+    holdData &&
+    holdData
+      ?.filter((a) => a.type === "expense")
+      .map((c) => +c.amount)
+      ?.reduce((acc, curr) => acc + curr, 0);
+
+  const total = totalIncome - totalExpense;
+
+  const date = (date) => {
+    const today = new Date();
+    const priorDate = new Date(new Date().setDate(today.getDate() - +date));
+
+    const splitDate = priorDate.toLocaleDateString()?.split("/");
+    const makeDate =
+      splitDate[0] +
+      "/" +
+      `${+splitDate[1] < 10 ? `0${splitDate[1]}` : splitDate[1]}` +
+      "/" +
+      splitDate[2];
+
+    setTime(makeDate);
+  };
+
   const handleFilter = (id) => {
     if (id === "save") {
       const filterData = holdData
@@ -33,7 +64,8 @@ export const FilterContextProvider = ({ children }) => {
             return c;
           }
           return c.type === methodRef.current.value;
-        });
+        })
+        .filter((c) => c.createdAt?.toDate()?.toLocaleDateString() >= time);
       setTransactionData(filterData);
     } else {
       setTransactionData(holdData);
@@ -47,7 +79,6 @@ export const FilterContextProvider = ({ children }) => {
         setTransactionData,
         handleFilter,
         time,
-        setTime,
         methodRef,
         amountFirstRef,
         amountSecondRef,
@@ -55,6 +86,10 @@ export const FilterContextProvider = ({ children }) => {
         setTransactionData,
         holdData,
         setHoldData,
+        date,
+        total,
+        totalIncome,
+        totalExpense,
       }}
     >
       {children}

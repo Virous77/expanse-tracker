@@ -3,6 +3,7 @@ import { useExpense } from "../../store/expenseContext";
 import ExpenseForm from "./ExpenseForm";
 import IncomeForm from "./IncomeForm";
 import Chart from "./Chart";
+import MiniStateMent from "./MiniStateMent";
 
 const Tracker = () => {
   const { activeType, setActiveType } = useExpense();
@@ -28,7 +29,7 @@ const Tracker = () => {
         {activeType === "income" && <IncomeForm />}
         {activeType === "expense" && <ExpenseForm />}
 
-        <Chart />
+        <MiniStateMent />
       </section>
     </main>
   );

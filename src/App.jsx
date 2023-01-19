@@ -11,13 +11,24 @@ import { FcCalculator } from "react-icons/fc";
 import Loader from "./components/UI/Loader";
 import Transaction from "./components/Expense/Transaction";
 import { BsFilterCircleFill } from "react-icons/bs";
+import useFetchCollectionByUid from "./hooks/useFetchUserByUid";
+import { useFilter } from "./store/filterContext";
 
 function App() {
   const { notification, setShowModal, showModal, setShowFilter } =
     useAppContext();
-  const { getCurrentUser, loading, setUserData, userData, initialState } =
-    userUserContext();
+  const { setTransactionData, setHoldData } = useFilter();
+  const {
+    getCurrentUser,
+    loading,
+    setUserData,
+    userData,
+    initialState,
+    activeUser,
+  } = userUserContext();
+  const { data } = useFetchCollectionByUid("userId", activeUser.uid, "expense");
 
+  ////Fetch CurrentUser
   useEffect(() => {
     getCurrentUser();
     const result = localStorage.getItem("expense");
@@ -29,6 +40,12 @@ function App() {
       setUserData(initialState);
     }
   }, [userData.isLoggedIn]);
+
+  ///FetchData
+  useEffect(() => {
+    setTransactionData(data);
+    setHoldData(data);
+  }, [data]);
 
   if (loading) return <Loader />;
 
