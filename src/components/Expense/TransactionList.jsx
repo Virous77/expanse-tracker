@@ -43,7 +43,7 @@ const TransactionList = ({ data, filter, title }) => {
                     <h3>{item.formType}</h3>
                     <span>{formatDate2(item.date)}</span>
                   </div>
-                  <span className="tAmount">{item.amount}$</span>
+                  <span className="tAmount">{item.amount}₹</span>
                 </div>
 
                 {showDetails === idx && (

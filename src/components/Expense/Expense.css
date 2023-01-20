@@ -5,6 +5,7 @@
   margin: auto;
   margin-top: 5rem;
   gap: 2rem;
+  padding: 0 1rem;
 }
 
 .eContent {
@@ -37,7 +38,7 @@
 }
 /* ///SideBar///////////////////// */
 
-.eSideMain h1 {
+.eSidetitle {
   padding: 8px;
   background-color: blueviolet;
   color: white;
@@ -150,4 +151,52 @@
 
 .incomeForm option {
   text-transform: capitalize;
+}
+
+@media (max-width: 920px) {
+  .expenseMain {
+    grid-template-columns: 180px 1fr;
+    max-width: 100%;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .expenseMain {
+    grid-template-columns: 1fr;
+    margin-top: 1rem;
+  }
+
+  .expenseMainActive {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    background-color: white;
+    height: 100%;
+    width: 50%;
+  }
+
+  .eSideMain {
+    display: none;
+  }
+
+  .eContent {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 660px) {
+  .subTracker {
+    grid-template-columns: 1fr;
+  }
+
+  .eContentHeader {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .expenseMainActive {
+    width: 70%;
+  }
 }

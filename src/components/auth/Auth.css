@@ -152,3 +152,33 @@
   width: 14rem;
   opacity: 0.4;
 }
+
+@media (max-width: 920px) {
+  .login {
+    width: 70%;
+    border-radius: 0;
+    height: 100%;
+  }
+
+  .authMain {
+    width: 70%;
+    border-radius: 0;
+    height: 100%;
+  }
+
+  .regCoverImg {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .login {
+    width: 85%;
+    padding: 1rem;
+  }
+
+  .authMain {
+    width: 85%;
+    padding: 1rem;
+  }
+}

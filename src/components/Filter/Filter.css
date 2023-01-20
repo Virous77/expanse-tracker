@@ -98,3 +98,9 @@
   gap: 1rem;
   align-items: flex-start;
 }
+
+@media (max-width: 520px) {
+  .filter {
+    width: 90%;
+  }
+}

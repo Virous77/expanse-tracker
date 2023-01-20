@@ -22,15 +22,15 @@ const Transaction = () => {
           <header className="incomeInfo">
             <div className="leftTrans">
               <p>
-                <GiReceiveMoney size={20} /> Income: {totalIncome}$
+                <GiReceiveMoney size={20} /> Income: {totalIncome}₹
               </p>
               <p>
-                <GiPayMoney size={20} /> Expense: {totalExpense}$
+                <GiPayMoney size={20} /> Expense: {totalExpense}₹
               </p>
             </div>
 
             <span>
-              <BiWalletAlt size={20} /> Total: {total}$
+              <BiWalletAlt size={20} /> Total: {total}₹
             </span>
           </header>
         )}

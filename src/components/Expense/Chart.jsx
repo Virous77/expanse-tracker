@@ -59,49 +59,53 @@ const Chart = () => {
         <>
           <p>Last 5 Transaction Chart</p>
           <section className="chart">
-            <div className="ppp">
-              <h1>Income</h1>
+            {uniqueIncome.length > 0 && (
+              <div className="ppp">
+                <h1>Income</h1>
 
-              <div className="incomeTags">
-                {uniqueIncome?.slice(0, 5)?.map((data) => (
-                  <span className="tagsList" key={data}>
-                    {data}
-                  </span>
-                ))}
+                <div className="incomeTags">
+                  {uniqueIncome?.slice(0, 5)?.map((data) => (
+                    <span className="tagsList" key={data}>
+                      {data}
+                    </span>
+                  ))}
+                </div>
+
+                <PieChart
+                  style={{ fontSize: "8px", color: "white" }}
+                  data={[...new Set(z)]}
+                  lineWidth={50}
+                  animate={true}
+                  animationDuration={1000}
+                  labelPosition={80}
+                  label={({ dataEntry }) => dataEntry.value}
+                />
               </div>
+            )}
 
-              <PieChart
-                style={{ fontSize: "8px", color: "white" }}
-                data={[...new Set(z)]}
-                lineWidth={50}
-                animate={true}
-                animationDuration={1000}
-                labelPosition={80}
-                label={({ dataEntry }) => dataEntry.value}
-              />
-            </div>
+            {uniqueExpense.length > 0 && (
+              <div className="ppp">
+                <h1>Expense</h1>
 
-            <div className="ppp">
-              <h1>Expense</h1>
+                <div className="incomeTags">
+                  {uniqueExpense?.slice(0, 5)?.map((data) => (
+                    <span className="tagsList ccc" key={data}>
+                      {data}
+                    </span>
+                  ))}
+                </div>
 
-              <div className="incomeTags">
-                {uniqueExpense?.slice(0, 5)?.map((data) => (
-                  <span className="tagsList ccc" key={data}>
-                    {data}
-                  </span>
-                ))}
+                <PieChart
+                  style={{ fontSize: "8px", color: "white" }}
+                  data={[...new Set(m)]}
+                  lineWidth={50}
+                  animate={true}
+                  animationDuration={1000}
+                  labelPosition={80}
+                  label={({ dataEntry }) => dataEntry.value}
+                />
               </div>
-
-              <PieChart
-                style={{ fontSize: "8px", color: "white" }}
-                data={[...new Set(m)]}
-                lineWidth={50}
-                animate={true}
-                animationDuration={1000}
-                labelPosition={80}
-                label={({ dataEntry }) => dataEntry.value}
-              />
-            </div>
+            )}
           </section>
         </>
       ) : (

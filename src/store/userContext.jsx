@@ -106,7 +106,7 @@ export const UserContextProvider = ({ children }) => {
       // State Clear
       setUserData({
         ...userData,
-        isLogged: true,
+        isLoggedIn: true,
         email: "",
         password: "",
         userName: "",
@@ -117,6 +117,7 @@ export const UserContextProvider = ({ children }) => {
         isLoading: false,
         uploadImage: null,
       });
+      setShowModal("");
     } catch (error) {
       ////Error state
       notificationSet({

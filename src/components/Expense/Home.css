@@ -1,0 +1,51 @@
+.home {
+  text-align: center;
+}
+
+.home h1 {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  text-shadow: 2px 3px 8px rgba(187, 176, 176, 0.8);
+  color: blueviolet;
+}
+
+.home img {
+  width: 50%;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.home h3 {
+  margin-top: 1.5rem;
+}
+
+.home p {
+  width: 90%;
+  margin: auto;
+  margin-top: 0.5rem;
+}
+
+.home button {
+  padding: 8px 25px;
+  background-color: blueviolet;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  margin-top: 1.3rem;
+  cursor: pointer;
+}
+
+.home button:hover {
+  background-color: rgb(126, 15, 231);
+}
+
+@media (max-width: 768px) {
+  .home img {
+    width: 75%;
+  }
+
+  .home p {
+    width: 95%;
+    font-size: 15px;
+  }
+}

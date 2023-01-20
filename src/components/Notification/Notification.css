@@ -5,8 +5,8 @@
   position: fixed;
   bottom: 7%;
   left: 50%;
-  transform: translate(-50%);
-  z-index: 100;
+  transform: translate(-50%, 50%);
+  z-index: 10000000;
   border-radius: 5px;
   box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
 }

@@ -5,7 +5,7 @@
   right: 0;
   top: 0;
   position: fixed;
-  width: 40%;
+  width: 45%;
   height: 100%;
 }
 
@@ -121,4 +121,28 @@
 
 .tExpBorder {
   border-left: 5px solid red;
+}
+
+@media (max-width: 920px) {
+  .trancMain {
+    width: 70%;
+  }
+}
+
+@media (max-width: 620px) {
+  .trancMain {
+    width: 90%;
+    padding: 1rem;
+  }
+  .incomeInfo span {
+    font-size: 15px;
+  }
+
+  .leftTrans p {
+    font-size: 15px;
+  }
+
+  .wrap {
+    grid-template-columns: 40px 1fr 60px;
+  }
 }

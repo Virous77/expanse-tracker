@@ -99,3 +99,9 @@
 .showCalc:active {
   scale: 0.97;
 }
+
+@media (max-width: 440px) {
+  .calcMain {
+    width: 95%;
+  }
+}

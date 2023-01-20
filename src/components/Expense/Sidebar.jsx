@@ -8,12 +8,16 @@ import user from "../../assets/user.svg";
 
 const Sidebar = () => {
   const { data, logoutUser, userData } = userUserContext();
-  const { setShowModal } = useAppContext();
+  const { setShowModal, showModal } = useAppContext();
   const { isLoggedIn } = userData;
 
   return (
-    <aside className="eSideMain">
-      <h1>Menu</h1>
+    <aside
+      className={` ${
+        showModal === "mobile" ? "expenseMainActive" : "eSideMain"
+      }`}
+    >
+      <h1 className="eSidetitle">Menu</h1>
 
       <div className="menu">
         {isLoggedIn && (
@@ -41,7 +45,13 @@ const Sidebar = () => {
         )}
 
         {isLoggedIn && (
-          <div className="sideProfile" onClick={logoutUser}>
+          <div
+            className="sideProfile"
+            onClick={() => {
+              logoutUser();
+              setShowModal("");
+            }}
+          >
             <RiLogoutCircleRLine size={32} />
             LOGOUT
           </div>

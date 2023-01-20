@@ -22,7 +22,7 @@ const Expense = () => {
         <>
           {showModal !== "chart" && (
             <section className="eContent">
-              <header>
+              <header className="eContentHeader">
                 <div className="eUser">
                   <h3>{currentMoment(new Date())},</h3>
                   <h4>{data[0]?.name}</h4>

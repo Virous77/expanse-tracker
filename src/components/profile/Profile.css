@@ -120,3 +120,16 @@
 .editProfile button:hover {
   scale: 0.95;
 }
+
+@media (max-width: 920px) {
+  .profile {
+    width: 60%;
+  }
+}
+
+@media (max-width: 620px) {
+  .profile {
+    width: 90%;
+    padding: 1rem;
+  }
+}

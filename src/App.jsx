@@ -13,6 +13,7 @@ import Transaction from "./components/Expense/Transaction";
 import { BsFilterCircleFill } from "react-icons/bs";
 import useFetchCollectionByUid from "./hooks/useFetchUserByUid";
 import { useFilter } from "./store/filterContext";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   const { notification, setShowModal, showModal, setShowFilter } =
@@ -51,6 +52,7 @@ function App() {
 
   return (
     <main className="App">
+      <Navbar />
       {showModal === "signup" && <Register />}
       {showModal === "signin" && <Login />}
       <Expense />
