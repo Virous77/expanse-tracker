@@ -27,7 +27,7 @@ const Expense = () => {
                   <h3>{currentMoment(new Date())},</h3>
                   <h4>{data[0]?.name}</h4>
                 </div>
-                <span>{formatDate(new Date()?.toLocaleDateString())}</span>
+                <span>{formatDate(new Date())}</span>
               </header>
 
               <Tracker />

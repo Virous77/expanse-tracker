@@ -35,26 +35,18 @@ export const handleIcon = (name) => {
 };
 
 export const currentMoment = (id) => {
-  const format = id.toLocaleTimeString();
+  const hours = id.getHours();
 
   let currentMoments;
-  const time = format?.split(":")[0];
-  if (format?.includes("PM")) {
-    if (
-      time === "12" ||
-      time === "1" ||
-      time === "2" ||
-      time === "3" ||
-      time === "4" ||
-      time === "5"
-    ) {
-      currentMoments = "Good Afternoon ";
-    } else {
-      currentMoments = "Good Evening";
-    }
-  } else {
+
+  if (hours >= 5 && hours <= 11) {
     currentMoments = "Good Morning";
+  } else if (hours >= 12 && hours <= 17) {
+    currentMoments = "Good Afternoon";
+  } else {
+    currentMoments = "Good Evening";
   }
+
   return currentMoments;
 };
 
@@ -74,11 +66,11 @@ export const month = [
 ];
 
 export const formatDate = (id) => {
-  const splitDate = id?.split("/");
+  const currentMonth = id?.getMonth();
+  const currentDat = id?.getDate();
 
   const date =
-    splitDate &&
-    month[splitDate[0] - 1] + " " + splitDate[1] + ", " + splitDate[2];
+    month[currentMonth] + " " + currentDat + ", " + id?.getFullYear();
 
   return date;
 };

@@ -53,7 +53,9 @@ const TransactionList = ({ data, filter, title }) => {
 
                     <b>
                       {formatDate(
-                        item?.createdAt?.toDate()?.toLocaleDateString()
+                        new Date(
+                          item?.createdAt?.toDate()?.toLocaleDateString()
+                        )
                       )}{" "}
                       {item?.createdAt?.toDate()?.toLocaleTimeString()}
                     </b>

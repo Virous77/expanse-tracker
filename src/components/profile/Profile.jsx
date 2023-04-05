@@ -60,15 +60,13 @@ const Profile = () => {
       uid: data[0]?.uid,
       uniqueId: userId,
     };
-
-    await setDoc(doc(db, "users", data[0]?.id), tempData);
-    setEditProfile(false);
-    localStorage.setItem(
-      "expenseProfile",
-      JSON.stringify(imageAsset ? imageAsset : data[0]?.photoURL)
-    );
-
     try {
+      await setDoc(doc(db, "users", data[0]?.id), tempData);
+      setEditProfile(false);
+      localStorage.setItem(
+        "expenseProfile",
+        JSON.stringify(imageAsset ? imageAsset : data[0]?.photoURL)
+      );
     } catch (error) {
       notificationSet({
         message: "Something went wrong,Try again!",
