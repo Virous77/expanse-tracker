@@ -85,6 +85,19 @@ export const formatDate2 = (id) => {
   return date;
 };
 
+export const formatDate3 = (id) => {
+  const date = new Date(+id.seconds * 1000 + +id.nanoseconds / 1000000);
+  return date.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+};
+
 export const validate = ({ type, input, types, errorSet, formType }) => {
   if (formType === input) {
     if (type !== "others") {

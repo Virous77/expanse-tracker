@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { formatDate, handleIcon, formatDate2 } from "../../utils/function";
+import { handleIcon, formatDate3, formatDate2 } from "../../utils/function";
 import { BsFillNutFill } from "react-icons/bs";
 import empty from "../../assets/empty.svg";
 
@@ -51,14 +51,7 @@ const TransactionList = ({ data, filter, title }) => {
                     <span>Method:- {item.type}</span>
                     <p>{item.note && item.note}</p>
 
-                    <b>
-                      {formatDate(
-                        new Date(
-                          item?.createdAt?.toDate()?.toLocaleDateString()
-                        )
-                      )}{" "}
-                      {item?.createdAt?.toDate()?.toLocaleTimeString()}
-                    </b>
+                    <b>{formatDate3(item.createdAt)}</b>
                   </div>
                 )}
               </div>
