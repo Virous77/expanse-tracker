@@ -27,22 +27,14 @@ export const FilterContextProvider = ({ children }) => {
 
   const total = totalIncome - totalExpense;
 
-  const date = (date) => {
-    const today = new Date();
-    const priorDate = new Date(new Date().setDate(today.getDate() - +date));
-
-    const splitDate = priorDate.toLocaleDateString()?.split("/");
-    const makeDate =
-      splitDate[0] +
-      "/" +
-      `${+splitDate[1] < 10 ? `0${splitDate[1]}` : splitDate[1]}` +
-      "/" +
-      splitDate[2];
-
-    setTime(makeDate);
-  };
-
   const handleFilter = (id) => {
+    const today = new Date();
+    const DaysAgo = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - time
+    );
+
     if (id === "save") {
       const filterData = holdData
         .filter((li) => {
@@ -65,7 +57,18 @@ export const FilterContextProvider = ({ children }) => {
           }
           return c.type === methodRef.current.value;
         })
-        .filter((c) => c.createdAt?.toDate()?.toLocaleDateString() >= time);
+        .filter((transc) => {
+          if (time) {
+            return (
+              new Date(
+                transc.createdAt.seconds * 1000 +
+                  transc.createdAt.nanoseconds / 1000000
+              ) >= DaysAgo
+            );
+          } else {
+            return transc;
+          }
+        });
       setTransactionData(filterData);
     } else {
       setTransactionData(holdData);
@@ -86,10 +89,10 @@ export const FilterContextProvider = ({ children }) => {
         setTransactionData,
         holdData,
         setHoldData,
-        date,
         total,
         totalIncome,
         totalExpense,
+        setTime,
       }}
     >
       {children}

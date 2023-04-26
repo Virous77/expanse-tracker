@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Filter.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { useAppContext } from "../../store/appContext";
 import { useFilter } from "../../store/filterContext";
+import Csv from "../CsvData/Csv";
 
 const Filter = () => {
   const { setShowFilter } = useAppContext();
-  const [time, setTime] = useState("");
 
-  const { methodRef, handleFilter, amountFirstRef, amountSecondRef, date } =
-    useFilter();
+  const {
+    methodRef,
+    handleFilter,
+    amountFirstRef,
+    amountSecondRef,
+    time,
+    setTime,
+  } = useFilter();
 
   return (
     <section className="filter" onClick={(e) => e.stopPropagation()}>
@@ -21,6 +27,7 @@ const Filter = () => {
           onClick={() => setShowFilter(false)}
         />
       </header>
+
       <div className="allF">
         <label>Method</label>
         <select ref={methodRef}>
@@ -36,28 +43,19 @@ const Filter = () => {
         <div className="fTimeList">
           <button
             className={time === 5 ? "activeF" : "noActiveF"}
-            onClick={() => {
-              date(5);
-              setTime(5);
-            }}
+            onClick={() => setTime(5)}
           >
             05 Days
           </button>
           <button
             className={time === 15 ? "activeF" : "noActiveF"}
-            onClick={() => {
-              date(15);
-              setTime(15);
-            }}
+            onClick={() => setTime(15)}
           >
             15 Days
           </button>
           <button
             className={time === 30 ? "activeF" : "noActiveF"}
-            onClick={() => {
-              date(30);
-              setTime(30);
-            }}
+            onClick={() => setTime(30)}
           >
             30 Days
           </button>
@@ -74,6 +72,10 @@ const Filter = () => {
           <label>Amount To</label>
           <input type="number" ref={amountSecondRef} />
         </div>
+      </div>
+
+      <div>
+        <Csv />
       </div>
 
       <div className="fAction">

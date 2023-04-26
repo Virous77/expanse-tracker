@@ -1,117 +1,127 @@
 import React from "react";
-import { PieChart } from "react-minimal-pie-chart";
 import { useFilter } from "../../store/filterContext";
 import { useAppContext } from "../../store/appContext";
 import "./Chart.css";
 import empty from "../../assets/empty.svg";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    title: {
+      display: true,
+      text: "Recent Expense Transactions",
+    },
+  },
+};
+
+export const options2 = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    title: {
+      display: true,
+      text: "Recent Income Transactions",
+    },
+  },
+};
 
 const Chart = () => {
   const { holdData } = useFilter();
   const { setShowModal } = useAppContext();
 
-  const z =
-    holdData &&
-    holdData
-      ?.filter((li) => li.type === "income")
-      ?.slice(0, 5)
-      ?.map((li, idx) => {
-        const cc = 11;
-        const y = {
-          title: li.formType,
-          value: +li.amount,
-          color: `#028${cc + idx}f`,
-        };
+  const today = new Date();
+  const thirtyDaysAgo = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 30
+  );
 
-        return y;
-      });
+  const lastThirtyDaysData = holdData.filter(
+    (item) =>
+      new Date(
+        item.createdAt.seconds * 1000 + item.createdAt.nanoseconds / 1000000
+      ) >= thirtyDaysAgo
+  );
 
-  const m =
-    holdData &&
-    holdData
-      ?.filter((li) => li.type === "expense")
-      ?.slice(0, 5)
-      ?.map((li, idx) => {
-        const cc = 1030;
-        const y = {
-          title: li.formType,
-          value: +li.amount,
-          color: `#ff${cc * idx}`,
-        };
+  const expenseData = lastThirtyDaysData.filter(
+    (transc) => transc.type === "expense"
+  );
+  const incomeData = lastThirtyDaysData.filter(
+    (transc) => transc.type === "income"
+  );
+  const expenseLabels = expenseData.map((transc) => transc.formType);
+  const incomeLabels = incomeData.map((transc) => transc.formType);
+  const expense = expenseData.map((transc) => transc.amount);
+  const income = incomeData.map((transc) => transc.amount);
 
-        return y;
-      });
+  const data = {
+    labels: expenseLabels,
+    datasets: [
+      {
+        label: "Last 30 Days",
+        data: expense,
+        backgroundColor: "red",
+      },
+    ],
+  };
 
-  const incomeTags = holdData
-    ?.filter((li) => li.type === "income")
-    ?.map((li) => li.formType);
-
-  const expenseTags = holdData
-    ?.filter((li) => li.type === "expense")
-    ?.map((li) => li.formType);
-
-  const uniqueIncome = [...new Set(incomeTags)];
-  const uniqueExpense = [...new Set(expenseTags)];
+  const data2 = {
+    labels: incomeLabels,
+    datasets: [
+      {
+        label: "Last 30 Days",
+        data: income,
+        backgroundColor: "green",
+      },
+    ],
+  };
 
   return (
     <main className="chartMain">
-      <button onClick={() => setShowModal("")}>Go Back</button>
-      {holdData && holdData.length > 0 ? (
+      {holdData.length > 0 ? (
         <>
-          <p>Last 5 Transaction Chart</p>
-          <section className="chart">
-            {uniqueIncome.length > 0 && (
-              <div className="ppp">
-                <h1>Income</h1>
+          {expenseData.length > 0 && (
+            <div>
+              <Bar options={options} data={data} />
+            </div>
+          )}
 
-                <div className="incomeTags">
-                  {uniqueIncome?.slice(0, 5)?.map((data) => (
-                    <span className="tagsList" key={data}>
-                      {data}
-                    </span>
-                  ))}
-                </div>
-
-                <PieChart
-                  style={{ fontSize: "8px", color: "white" }}
-                  data={[...new Set(z)]}
-                  lineWidth={50}
-                  animate={true}
-                  animationDuration={1000}
-                  labelPosition={80}
-                  label={({ dataEntry }) => dataEntry.value}
-                />
-              </div>
-            )}
-
-            {uniqueExpense.length > 0 && (
-              <div className="ppp">
-                <h1>Expense</h1>
-
-                <div className="incomeTags">
-                  {uniqueExpense?.slice(0, 5)?.map((data) => (
-                    <span className="tagsList ccc" key={data}>
-                      {data}
-                    </span>
-                  ))}
-                </div>
-
-                <PieChart
-                  style={{ fontSize: "8px", color: "white" }}
-                  data={[...new Set(m)]}
-                  lineWidth={50}
-                  animate={true}
-                  animationDuration={1000}
-                  labelPosition={80}
-                  label={({ dataEntry }) => dataEntry.value}
-                />
-              </div>
-            )}
-          </section>
+          {incomeData.length > 0 && (
+            <div style={{ marginTop: "3rem" }}>
+              <Bar options={options2} data={data2} />
+            </div>
+          )}
         </>
       ) : (
-        <div className="empty">
+        <div className="empty-trans">
           <img src={empty} alt="empty" />
-          <p>No Transaction yet!</p>
+          <p>You haven't done any transaction yet.</p>
         </div>
       )}
     </main>
