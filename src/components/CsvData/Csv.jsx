@@ -3,48 +3,31 @@ import { CSVLink } from "react-csv";
 import { useFilter } from "../../store/filterContext";
 
 const Csv = () => {
-  const { holdData } = useFilter();
+  const { transactionData } = useFilter();
 
   const headers = [
-    { label: "Transaction", key: "transaction" },
+    { label: "Transaction Name", key: "transaction" },
     { label: "Amount", key: "amount" },
     { label: "Date", key: "date" },
+    { label: "Type", key: "type" },
   ];
 
-  const getCSVData = (data) => {
-    let csvData = [];
-    data?.map((item) => {
-      const testData = {
-        Transaction: item.formType,
-        Amount: item?.amount,
-        Date: item.date,
-      };
-      csvData = [...csvData, { ...testData }];
-    });
-
-    return csvData;
-  };
-
-  const csvButtonStyle = {
-    color: "red",
-    marginLeft: 5,
-    border: "1px solid",
-    padding: "14px",
-    borderRadius: "8px",
-    borderColor: "grey",
-  };
+  const csvData = transactionData.map((item) => ({
+    transaction: item.formType,
+    amount: item?.amount,
+    date: item.date,
+    type: item.type,
+  }));
 
   const csvReport = {
     filename: `Transaction-${new Date().getDate()}.csv`,
     headers: headers,
-    data: getCSVData(holdData),
+    data: csvData,
   };
 
-  console.log(csvReport);
-
   return (
-    <CSVLink style={csvButtonStyle} {...csvReport}>
-      Download me
+    <CSVLink style={{ marginTop: "8px", fontSize: "13px" }} {...csvReport}>
+      Download Transaction Csv
     </CSVLink>
   );
 };
