@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFilter } from "../../store/filterContext";
-import { useAppContext } from "../../store/appContext";
 import "./Chart.css";
 import empty from "../../assets/empty.svg";
 import {
@@ -14,6 +13,7 @@ import {
   ArcElement,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import Sort from "./Sort";
 
 ChartJS.register(
   CategoryScale,
@@ -32,7 +32,7 @@ export const options = {
       position: "top",
     },
     title: {
-      display: true,
+      display: false,
       text: "Recent Expense Transactions",
     },
   },
@@ -53,7 +53,14 @@ export const options2 = {
 
 const Chart = () => {
   const { holdData } = useFilter();
-  const { setShowModal } = useAppContext();
+  const [income, setIncome] = useState({
+    data: [],
+    label: [],
+  });
+  const [expense, setExpense] = useState({
+    data: [],
+    label: [],
+  });
 
   const today = new Date();
   const thirtyDaysAgo = new Date(
@@ -75,45 +82,144 @@ const Chart = () => {
   const incomeData = lastThirtyDaysData.filter(
     (transc) => transc.type === "income"
   );
-  const expenseLabels = expenseData.map((transc) => transc.formType);
-  const incomeLabels = incomeData.map((transc) => transc.formType);
-  const expense = expenseData.map((transc) => transc.amount);
-  const income = incomeData.map((transc) => transc.amount);
 
   const data = {
-    labels: expenseLabels,
+    labels: expense.label,
     datasets: [
       {
         label: "Last 30 Days",
-        data: expense,
+        data: expense.data,
         backgroundColor: "red",
       },
     ],
   };
 
   const data2 = {
-    labels: incomeLabels,
+    labels: income.label,
     datasets: [
       {
         label: "Last 30 Days",
-        data: income,
+        data: income.data,
         backgroundColor: "green",
       },
     ],
   };
+
+  const handleIncomeChange = ({ value, data, setType }) => {
+    if (value === "asc") {
+      const sortLabel = data
+        .sort((a, b) => a.amount - b.amount)
+        .map((trans) => trans.formType);
+      const sortData = data
+        .sort((a, b) => a.amount - b.amount)
+        .map((trans) => trans.amount);
+
+      setType({ ...income, data: sortData, label: sortLabel });
+    }
+
+    if (value === "des") {
+      const sortLabel = data
+        .sort((a, b) => b.amount - a.amount)
+        .map((trans) => trans.formType);
+      const sortData = data
+        .sort((a, b) => b.amount - a.amount)
+        .map((trans) => trans.amount);
+
+      setType({ ...income, data: sortData, label: sortLabel });
+    }
+
+    if (value === "null") {
+      const mapData = data.map((transc) => transc.amount);
+      const mapLabel = data.map((transc) => transc.formType);
+      setType({
+        ...income,
+        data: mapData,
+        label: mapLabel,
+      });
+    }
+
+    if (value !== "null" || value !== "des" || value !== "asc") {
+      const today = new Date();
+      const DaysAgo = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() - +value
+      );
+
+      const sortLabel = data
+        .filter(
+          (transc) =>
+            new Date(
+              transc.createdAt.seconds * 1000 +
+                transc.createdAt.nanoseconds / 1000000
+            ) >= DaysAgo
+        )
+        .map((transc) => transc.formType);
+
+      const sortData = data
+        .filter(
+          (transc) =>
+            new Date(
+              transc.createdAt.seconds * 1000 +
+                transc.createdAt.nanoseconds / 1000000
+            ) >= DaysAgo
+        )
+        .map((transc) => transc.amount);
+
+      setType({
+        ...income,
+        data: sortData,
+        label: sortLabel,
+      });
+    }
+  };
+
+  useEffect(() => {
+    setIncome({
+      ...income,
+      data: incomeData.map((transc) => transc.amount),
+      label: incomeData.map((transc) => transc.formType),
+    });
+
+    setExpense({
+      ...income,
+      data: expenseData.map((transc) => transc.amount),
+      label: expenseData.map((transc) => transc.formType),
+    });
+  }, []);
 
   return (
     <main className="chartMain">
       {holdData.length > 0 ? (
         <>
           {expenseData.length > 0 && (
-            <div>
+            <div className="expense-chart">
+              <Sort
+                title="Expense Transaction"
+                handleChange={(e) =>
+                  handleIncomeChange({
+                    value: e.target.value,
+                    data: expenseData,
+                    setType: setExpense,
+                  })
+                }
+              />
               <Bar options={options} data={data} />
             </div>
           )}
 
           {incomeData.length > 0 && (
-            <div style={{ marginTop: "3rem" }}>
+            <div style={{ marginTop: "3rem" }} className="cool">
+              <Sort
+                title="Income Transaction"
+                handleChange={(e) =>
+                  handleIncomeChange({
+                    value: e.target.value,
+                    data: incomeData,
+                    setType: setIncome,
+                  })
+                }
+              />
               <Bar options={options2} data={data2} />
             </div>
           )}

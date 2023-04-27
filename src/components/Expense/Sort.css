@@ -1,0 +1,17 @@
+.sort-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.sort-main h2 {
+  font-size: 23px;
+}
+
+.sort-main select {
+  padding: 2px 5px;
+  font-weight: bold;
+  outline: none;
+}
