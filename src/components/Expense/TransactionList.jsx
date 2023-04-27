@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { handleIcon, formatDate3, formatDate2 } from "../../utils/function";
 import { BsFillNutFill } from "react-icons/bs";
 import empty from "../../assets/empty.svg";
+import "./Transaction.css";
 
 const TransactionList = ({ data, filter, title }) => {
   const [showDetails, setShowDetails] = useState("");

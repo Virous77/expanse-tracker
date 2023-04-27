@@ -32,7 +32,7 @@ export const options = {
       position: "top",
     },
     title: {
-      display: false,
+      display: true,
       text: "Recent Expense Transactions",
     },
   },
@@ -114,7 +114,7 @@ const Chart = () => {
         .sort((a, b) => a.amount - b.amount)
         .map((trans) => trans.amount);
 
-      setType({ ...income, data: sortData, label: sortLabel });
+      return setType({ ...income, data: sortData, label: sortLabel });
     }
 
     if (value === "des") {
@@ -125,13 +125,13 @@ const Chart = () => {
         .sort((a, b) => b.amount - a.amount)
         .map((trans) => trans.amount);
 
-      setType({ ...income, data: sortData, label: sortLabel });
+      return setType({ ...income, data: sortData, label: sortLabel });
     }
 
     if (value === "null") {
       const mapData = data.map((transc) => transc.amount);
       const mapLabel = data.map((transc) => transc.formType);
-      setType({
+      return setType({
         ...income,
         data: mapData,
         label: mapLabel,
@@ -166,7 +166,7 @@ const Chart = () => {
         )
         .map((transc) => transc.amount);
 
-      setType({
+      return setType({
         ...income,
         data: sortData,
         label: sortLabel,
